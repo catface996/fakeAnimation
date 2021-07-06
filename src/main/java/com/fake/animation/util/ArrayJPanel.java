@@ -9,30 +9,21 @@ import javax.swing.*;
  * @author by catface
  * @date 2021/7/6 2:27 下午
  */
-public class ArrayContainer {
+public class ArrayJPanel {
 
+    private static Color defaultColor;
     private Button[] bts;
-    private Color defaultColor;
 
-    public Container build(Object[] arr) {
+    public static Color getDefaultColor() {
+        return defaultColor;
+    }
+
+    public void setDefaultColor(int index) {
+        bts[index].setBackground(defaultColor);
+    }
+
+    public JPanel build(Object[] arr) {
         this.bts = new Button[arr.length];
-        // 父面板
-        JPanel parent = new JPanel();
-        parent.setLayout(new GridLayout(2, 1));
-
-        // 子面板,原始数组
-        JPanel textPanel = new JPanel();
-        textPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        textPanel.add(new Label("原始数组"));
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < arr.length; i++) {
-            stringBuilder.append(arr[i].toString());
-            if (i < arr.length - 1) {
-                stringBuilder.append(",");
-            }
-        }
-        textPanel.add(new Label(stringBuilder.toString()));
-
         // 排序展示面板
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -41,9 +32,7 @@ public class ArrayContainer {
             jPanel.add(bts[i]);
         }
         defaultColor = bts[0].getBackground();
-        parent.add(textPanel);
-        parent.add(jPanel);
-        return parent;
+        return jPanel;
     }
 
     public void flash(int index, int times) {
@@ -101,9 +90,5 @@ public class ArrayContainer {
         String label = bts[indexA].getLabel();
         bts[indexA].setLabel(bts[indexB].getLabel());
         bts[indexB].setLabel(label);
-    }
-
-    public void setDefaultColor(int index) {
-        bts[index].setBackground(defaultColor);
     }
 }
